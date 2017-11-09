@@ -1,3 +1,13 @@
+# Windows thumbnail db
+Thumbs.db
+
+# OSX files
+.DS_Store
+
+# Editor files
+*.iml
+.idea
+
 # Logs
 logs
 *.log
