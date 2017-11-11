@@ -23,7 +23,7 @@ exports.ensureAuthenticatedAdmin = function (req, res, next) {
     } else {
         res.status(403).send({ valid: false, message: "Access Denied!" });
     }
-}
+};
 
 exports.ensureCurrentUserOrAdmin = function (req, res, next) {
     if (req.decodedToken) {
@@ -36,4 +36,4 @@ exports.ensureCurrentUserOrAdmin = function (req, res, next) {
     } else {
         res.status(403).send({ valid: false, message: "Access Denied!" });
     }
-}
+};

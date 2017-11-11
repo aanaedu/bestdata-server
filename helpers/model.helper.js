@@ -8,7 +8,7 @@ exports.handleDuplicateKeyError = function (error, res, next) {
     } else {
         next(error);
     }
-}
+};
 
 exports.validateEmail = function (email) {
     let re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

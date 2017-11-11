@@ -33,12 +33,12 @@ let UserSchema = new Schema({
         type: Boolean,
         default: false
     }
-}, { timestamps: true });
+}, {timestamps: true});
 
 UserSchema.pre('save', function (next) {
-    if(!this.isModified('password')) { 
+    if (!this.isModified('password')) {
         return next();
-    };
+    }
     bcrypt.hash(this.password, 10, (err, hash) => {
         if (err) return next(err);
         this.password = hash;
@@ -48,7 +48,7 @@ UserSchema.pre('save', function (next) {
 
 UserSchema.methods.comparePassword = function (plainTextPassword) {
     return bcrypt.compare(plainTextPassword, this.password);
-}
+};
 
 UserSchema.post('save', modelHelper.handleDuplicateKeyError);
 

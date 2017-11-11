@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken'),
     config = require('../config/config');
 
 exports.authenticate = (req, res) => {
-    User.findOne({ email: req.body.email })
+    User.findOne({email: req.body.email})
         .select('firstName email password isAdmin')
         .exec((err, user) => {
             if (err) throw err;
@@ -14,7 +14,7 @@ exports.authenticate = (req, res) => {
                     message: 'Authentication failed. User not found.'
                 });
             } else if (user) {
-                user.comparePassword(req.body.password).then(function(validPassword){
+                user.comparePassword(req.body.password).then(function (validPassword) {
                     if (!validPassword) {
                         res.json({
                             valid: false,
@@ -27,19 +27,19 @@ exports.authenticate = (req, res) => {
                             email: user.email,
                             isAdmin: user.isAdmin
                         }, config.secret, {
-                                expiresIn: 1440
-                            });
+                            expiresIn: 1440
+                        });
                         res.json({
                             valid: true,
                             token: token
                         });
                     }
-                }).catch(function(err) {
+                }).catch(function (err) {
                     throw new Error(err);
                 });
             }
         })
-}
+};
 
 exports.getPayload = (req, res) => {
     if (req.decodedToken) {
@@ -47,4 +47,4 @@ exports.getPayload = (req, res) => {
     } else {
         res.send({});
     }
-}
+};

@@ -10,14 +10,14 @@ router.all('/:id', (req, res, next)=> {
         ObjectId(req.params.id);
         next();
     } catch (e) {
-        console.error(e);
+        console.error('Invalid mongo object id');
     }
 });
 
-router.get('/', authHelper.ensureAuthenticatedAdmin, UserCtrl.findAll);
-router.get('/:id', authHelper.ensureAuthenticatedAdmin, UserCtrl.findOne);
-router.post('/', authHelper.ensureAuthenticatedAdmin, UserCtrl.create);
-router.put('/:id', authHelper.ensureCurrentUserOrAdmin, UserCtrl.update);
-router.delete('/:id', authHelper.ensureAuthenticatedAdmin, UserCtrl.delete);
+router.get('/', authHelper.ensureAuthenticated, authHelper.ensureAuthenticatedAdmin, UserCtrl.findAll);
+router.get('/:id', authHelper.ensureAuthenticated, authHelper.ensureAuthenticatedAdmin, UserCtrl.findOne);
+router.post('/', authHelper.ensureAuthenticated, authHelper.ensureAuthenticatedAdmin, UserCtrl.create);
+router.put('/:id', authHelper.ensureAuthenticated, authHelper.ensureCurrentUserOrAdmin, UserCtrl.update);
+router.delete('/:id', authHelper.ensureAuthenticated, authHelper.ensureAuthenticatedAdmin, UserCtrl.delete);
 
 module.exports = router;
